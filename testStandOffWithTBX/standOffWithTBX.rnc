@@ -9,7 +9,7 @@ namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xi = "http://www.w3.org/2001/XInclude"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2016-05-04T13:04:26Z. .
+# Schema generated from ODD source 2016-05-06T09:37:26Z. .
 # TEI Edition: 
 # TEI Edition Location: http://www.tei-c.org/Vault/P5//
 #
@@ -6771,9 +6771,9 @@ standOff =
   
   ## Container element for standoff annotations
   element standOff {
-    teiHeader?,
+    soHeader?,
     model.resourceLike*,
-    listAnnotation*,
+    (listAnnotation*),
     (standOff*)
     >> sch:ns [ prefix = "stdf" uri = "http://standoff.proposal" ]
     >> sch:pattern [
@@ -7145,6 +7145,17 @@ fvLib =
   
   ## (feature-value library) assembles a library of reusable feature value elements (including complete feature structures). [18.4. Feature Libraries and Feature-Value Libraries]
   element tei:fvLib { model.featureVal*, att.global.attributes, empty }
+soHeader =
+  
+  ## Metadata for the stdf element(s)
+  element soHeader {
+    titleStmt?
+    & publicationStmt?
+    & notesStmt?
+    & encodingDesc?
+    & profileDesc?
+    & revisionDesc?
+  }
 termEntry =
   
   ## groups the components of a single Terminological Entry as defined in ISO 16642 (TMF)

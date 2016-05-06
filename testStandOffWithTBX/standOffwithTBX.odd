@@ -40,8 +40,10 @@
           <moduleRef key="standOff"/>
           <moduleRef key="iso-fs"/>
 
-          <!-- Specific change for the Termith project -->
-
+          <!-- ***************************************** -->
+          <!-- *Specific change for the Termith project* -->
+          <!-- ***************************************** -->
+	  <!-- more flexibility for textDesc element -->
           <elementSpec ident="textDesc" mode="change" module="corpus">
             <content>
               <rng:oneOrMore>
@@ -59,7 +61,71 @@
             </content>
           </elementSpec>
 
+	  <!-- add soHeader for Termith project-->
+	  <elementSpec ident="soHeader" mode="add" ns="http://standoff.proposal" 
+    module="standOff"> 
+	    <desc>Metadata for the <gi>stdf</gi> element(s)</desc> 
+	    <content> 
+		<rng:interleave> 
+	    <rng:optional> 
+		<rng:ref name="titleStmt"/> 
+	    </rng:optional> 
+	    <rng:optional> 
+		<rng:ref name="publicationStmt"/> 
+	    </rng:optional> 
+	    <rng:optional> 
+		<rng:ref name="notesStmt"/> 
+	    </rng:optional> 
+	    <rng:optional> 
+		<rng:ref name="encodingDesc"/> 
+	    </rng:optional> 
+	    <rng:optional> 
+		<rng:ref name="profileDesc"/> 
+	    </rng:optional> 
+	    <rng:optional> 
+		<rng:ref name="revisionDesc"/> 
+	    </rng:optional> 
+		</rng:interleave> 
+	    </content>
+	  </elementSpec>
 
+	  <!-- add soHeader in standOff for Termith project -->
+	  <elementSpec ident="standOff" mode="change" ns="http://standoff.proposal" module="standOff">
+	    <desc>Container element for standoff annotations</desc>
+	    <classes>
+		<memberOf key="model.resourceLike" mode="add"/>
+		<memberOf key="att.global" mode="add"/>
+		<memberOf key="att.datcat" mode="add"/>
+		<memberOf key="att.ascribed" mode="add"/>
+		<memberOf key="att.datable.w3c" mode="add"/>
+		<memberOf key="att.responsibility" mode="add"/>
+		<memberOf key="att.pointing" mode="add"/>
+		<memberOf key="att.typed" mode="add"/>
+	    </classes>
+	    <content>
+		<rng:optional>
+		    <rng:ref name="soHeader"/>
+		</rng:optional>
+		<rng:zeroOrMore>
+		    <rng:ref name="model.resourceLike"/>
+		</rng:zeroOrMore>
+		<rng:choice>
+		    <rng:zeroOrMore>
+			<rng:ref name="listAnnotation"/>
+		    </rng:zeroOrMore>
+		    <rng:zeroOrMore>
+			<rng:ref name="annotationBlock"/>
+		    </rng:zeroOrMore>
+		</rng:choice>
+		<rng:zeroOrMore>
+		    <rng:ref name="standOff"/>
+		</rng:zeroOrMore>
+	    </content>
+	  </elementSpec>
+
+          <!-- ***************************************** -->
+          <!-- ***************************************** -->
+	  
           <!-- TBX is described from termEntry downwards -->
           <elementSpec ident="termEntry" ns="http://www.tbx.org" mode="add">
             <desc>groups the components of a single Terminological Entry as defined in ISO 16642 (TMF)</desc>
